@@ -55,7 +55,7 @@ const LearningModules = () => {
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Financial Skills Through <span className="text-blue-500">Play</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground dark:text-zinc-300 max-w-2xl mx-auto">
             Our game-based approach makes learning about money engaging and effective. Kids develop real financial skills while having a blast!
           </p>
         </motion.div>

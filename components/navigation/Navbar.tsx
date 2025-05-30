@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Wallet, Coins, Trophy, TowerControl as GameController, BookOpen } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import MobileMenu from './MobileMenu';
+import { ThemeToggle } from '../ui/theme-toggle';
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -58,6 +59,7 @@ const Navbar = () => {
             >
               Contact
             </Link>
+            <ThemeToggle />
           </nav>
           <div className="flex items-center gap-2">
             <Link href="/login">

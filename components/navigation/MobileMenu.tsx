@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, Wallet, Coins, Trophy, TowerControl as GameController, BookOpen } from 'lucide-react';
+import { ThemeToggle } from '../ui/theme-toggle';
 
 interface MobileMenuProps {
   pathname: string;
@@ -23,6 +24,7 @@ const MobileMenu = ({ pathname }: MobileMenuProps) => {
         </SheetTrigger>
         <SheetContent side="right">
           <div className="flex flex-col gap-6 py-6">
+            <ThemeToggle />
             <Link 
               href="/" 
               onClick={() => setOpen(false)}
