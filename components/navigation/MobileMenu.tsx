@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Wallet, Coins, Trophy, TowerControl as GameController, BookOpen } from 'lucide-react';
+import { Menu, Wallet, Coins, Trophy, TowerControl as GameController, BookOpen, User } from 'lucide-react';
 
 interface MobileMenuProps {
   pathname: string;
@@ -53,6 +53,14 @@ const MobileMenu = ({ pathname }: MobileMenuProps) => {
             >
               <Trophy className="h-5 w-5" />
               <span>Leaderboard</span>
+            </Link>
+            <Link 
+              href="/profile" 
+              onClick={() => setOpen(false)}
+              className={`flex items-center gap-2 text-lg font-medium ${pathname === '/profile' ? 'text-primary' : 'text-muted-foreground'}`}
+            >
+              <User className="h-5 w-5" />
+              <span>Profile</span>
             </Link>
             <Link 
               href="/contact" 

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Wallet, Coins, Trophy, TowerControl as GameController, BookOpen } from 'lucide-react';
+import { Wallet, Coins, Trophy, TowerControl as GameController, BookOpen, User } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import MobileMenu from './MobileMenu';
 
@@ -50,6 +50,15 @@ const Navbar = () => {
               <div className="flex items-center gap-1">
                 <Trophy className="h-4 w-4" />
                 <span>Leaderboard</span>
+              </div>
+            </Link>
+            <Link 
+              href="/profile" 
+              className={`transition-colors hover:text-primary ${pathname === '/profile' ? 'text-primary font-semibold' : 'text-muted-foreground'}`}
+            >
+              <div className="flex items-center gap-1">
+                <User className="h-4 w-4" />
+                <span>Profile</span>
               </div>
             </Link>
             <Link 
