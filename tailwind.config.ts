@@ -42,9 +42,17 @@ const config: Config = {
           DEFAULT: 'hsl(var(--muted))',
           foreground: 'hsl(var(--muted-foreground))',
         },
+        brand: {
+          50: '#eff6ff',
+          500: '#3b82f6', // Your current blue
+          600: '#2563eb',
+          900: '#1e3a8a',
+        },
         accent: {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
+          400: '#fbbf24', // Your current yellow
+          500: '#f59e0b',
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
