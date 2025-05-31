@@ -1281,7 +1281,7 @@ function LearnPage() {
         }}></div>
       </div>
 
-      {/* Dark Mode Toggle */}
+      {/* Dark Mode Toggle
       <button 
         onClick={toggleDarkMode}
         className="fixed top-4 right-4 z-50 bg-white dark:bg-gray-800 rounded-full p-2 shadow-md dark:shadow-gray-900/30 transition-all duration-300"
@@ -1295,7 +1295,7 @@ function LearnPage() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
           </svg>
         )}
-      </button>
+      </button> */}
 
       {/* Dynamic Floating Elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-10">
