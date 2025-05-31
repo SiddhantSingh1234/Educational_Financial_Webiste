@@ -1253,7 +1253,7 @@ function LearnPage() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleUnlockModule = (moduleId: number, requiredCoins: number) => {
+  const handleUnlockModule = (moduleId, requiredCoins) => {
     if (userCoins >= requiredCoins) {
       setModules(modules.map(module => 
         module.id === moduleId ? { ...module, unlocked: true } : module
