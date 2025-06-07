@@ -200,26 +200,26 @@ const HeroStatsSection = () => {
             >
               <Button 
                 size="lg" 
-                className="relative bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 hover:from-yellow-300 hover:via-orange-300 hover:to-pink-300 text-white font-bold px-10 py-4 text-xl rounded-full shadow-2xl hover:shadow-yellow-400/70 transform hover:scale-110 transition-all duration-300 border-2 border-white/30"
+                className="h-20 w-74 relative bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 hover:from-yellow-300 hover:via-orange-300 hover:to-pink-300 text-white font-bold px-10 py-4 text-xl rounded-full shadow-2xl hover:shadow-yellow-400/70 transform hover:scale-110 transition-all duration-300 border-2 border-white/30"
                 onClick={() => router.push('/signup')}
               >
                 <Sparkles className="mr-3 h-6 w-6" />
-                Start Playing Free
+                Explore Lessons
                 <div className="absolute inset-0 rounded-full bg-white/40 animate-ping opacity-40" />
               </Button>
               
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="relative bg-white/30 hover:bg-white/50 border-3 border-white/70 text-white font-bold px-10 py-4 text-xl rounded-full backdrop-blur-lg hover:backdrop-blur-xl transition-all duration-300 shadow-2xl hover:shadow-white/30 transform hover:scale-105"
+                className="h-20 w-74 relative bg-white/30 hover:bg-white/50 border-3 border-white/70 text-white font-bold px-10 py-4 text-xl rounded-full backdrop-blur-lg hover:backdrop-blur-xl transition-all duration-300 shadow-2xl hover:shadow-white/30 transform hover:scale-105"
                 onClick={() => router.push('/learn')}
               >
-                Explore Lessons
+                Start Playing Free
               </Button>
             </motion.div>
 
             {/* Enhanced Trust Indicators - More Visible */}
-            <motion.div
+            {/* <motion.div
               className="mt-12 flex flex-wrap justify-center items-center gap-8 text-sm font-bold"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -237,7 +237,7 @@ const HeroStatsSection = () => {
                 <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse shadow-lg shadow-purple-400/50" />
                 <span className="text-white">Safe & Educational</span>
               </div>
-            </motion.div>
+            </motion.div> */}
           </div>
         </div>
       </div>
