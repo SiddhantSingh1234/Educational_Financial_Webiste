@@ -209,7 +209,7 @@ export default function Testimonials() {
         <h2 className="text-3xl md:text-4xl font-bold mb-4">
           What Parents & Teachers
           <Highlight className="text-black dark:text-white">
-            <span className="text-blue-600 dark:text-blue-300">Say</span>
+            <span className="text-blue-600 dark:text-blue-400">Say</span>
           </Highlight>
         </h2>
         <p className="text-lg text-muted-foreground dark:text-zinc-300 max-w-2xl mx-auto">

@@ -1195,241 +1195,991 @@
 //   );
 // }
 
+// 'use client';
+
+// import React, { useState, useEffect } from 'react';
+// import { learningModules } from '@/data/learningModules';
+// import { SparkleProps } from '@/types';
+// import { Header } from '@/components/learn/Header';
+// import { StatsCard } from '@/components/learn/StatsCard';
+// import { ProgressBar } from '@/components/learn/ProgressBar';
+// import { LearningRoad } from '@/components/learn/LearningRoad';
+// import { TestimonialsSection } from '@/components/learn/TestimonialsSection';
+// import { AchievementSection } from '@/components/learn/AchievementSection';
+
+// function LearnPage() {
+//   const [modules, setModules] = useState(learningModules);
+//   const [userLevel, setUserLevel] = useState(1);
+//   const [userCoins, setUserCoins] = useState(50);
+//   const [overallProgress, setOverallProgress] = useState(20);
+//   const [hoveredModule, setHoveredModule] = useState<number | null>(null);
+//   const [sparkles, setSparkles] = useState<SparkleProps[]>([]);
+//   const [darkMode, setDarkMode] = useState(false);
+
+//   // Check for system dark mode preference
+//   useEffect(() => {
+//     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+//     const handleChange = (e: MediaQueryListEvent) => setDarkMode(e.matches);
+//     mediaQuery.addEventListener('change', handleChange);
+    
+//     return () => mediaQuery.removeEventListener('change', handleChange);
+//   }, []);
+
+//   // Apply dark mode class to document
+//   useEffect(() => {
+//     if (darkMode) {
+//       document.documentElement.classList.add('dark');
+//     } else {
+//       document.documentElement.classList.remove('dark');
+//     }
+//   }, [darkMode]);
+
+//   // Generate floating sparkles
+//   useEffect(() => {
+//     const generateSparkles = () => {
+//       const newSparkles = Array.from({ length: 10 }, (_, i) => ({
+//         id: i,
+//         left: Math.random() * 100,
+//         top: Math.random() * 100,
+//         delay: Math.random() * 4,
+//         duration: 3 + Math.random() * 2,
+//         size: 0.5 + Math.random() * 0.5
+//       }));
+//       setSparkles(newSparkles);
+//     };
+
+//     generateSparkles();
+//     const interval = setInterval(generateSparkles, 8000);
+//     return () => clearInterval(interval);
+//   }, []);
+
+//   const handleUnlockModule = (moduleId, requiredCoins) => {
+//     if (userCoins >= requiredCoins) {
+//       setModules(modules.map(module => 
+//         module.id === moduleId ? { ...module, unlocked: true } : module
+//       ));
+//       setUserCoins(userCoins - requiredCoins);
+//       setTimeout(() => {
+//         alert("🎉 Module unlocked! Welcome to your new adventure!");
+//       }, 100);
+//     } else {
+//       alert(`💰 You need ${requiredCoins - userCoins} more coins to unlock this amazing module!`);
+//     }
+//   };
+
+//   const toggleDarkMode = () => {
+//     setDarkMode(!darkMode);
+//   };
+
+//   return (
+//     <div className={`min-h-screen bg-gradient-to-br from-cyan-600 via-purple-800 to-purple-800 dark:from-gray-900 dark:via-indigo-950 dark:to-purple-950 overflow-x-hidden relative transition-colors duration-300`}>
+//       {/* Animated Background Pattern */}
+//       <div className="absolute inset-0 opacity-10 dark:opacity-20">
+//         <div className="absolute inset-0" style={{
+//           backgroundImage: `radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.1) 0%, transparent 50%), 
+//                            radial-gradient(circle at 75% 75%, rgba(236, 72, 153, 0.1) 0%, transparent 50%)`,
+//         }}></div>
+//       </div>
+
+//       {/* Dark Mode Toggle
+//       <button 
+//         onClick={toggleDarkMode}
+//         className="fixed top-4 right-4 z-50 bg-white dark:bg-gray-800 rounded-full p-2 shadow-md dark:shadow-gray-900/30 transition-all duration-300"
+//       >
+//         {darkMode ? (
+//           <svg xmlns="http://www.w3.org/2000/svg\" className="h-6 w-6 text-yellow-400\" fill="none\" viewBox="0 0 24 24\" stroke="currentColor">
+//             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+//           </svg>
+//         ) : (
+//           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+//             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+//           </svg>
+//         )}
+//       </button> */}
+
+//       {/* Dynamic Floating Elements */}
+//       <div className="fixed inset-0 pointer-events-none overflow-hidden z-10">
+//         {sparkles.map((sparkle) => (
+//           <div
+//             key={sparkle.id}
+//             className="absolute text-yellow-300 dark:text-yellow-200 opacity-60"
+//             style={{
+//               left: `${sparkle.left}%`,
+//               top: `${sparkle.top}%`,
+//               fontSize: `${sparkle.size}rem`,
+//               animation: `float ${sparkle.duration}s ease-in-out infinite`,
+//               animationDelay: `${sparkle.delay}s`
+//             }}
+//           >
+//             ✨
+//           </div>
+//         ))}
+        
+//         {/* Corner decorations */}
+//         <div className="absolute top-10 left-10 text-5xl md:text-6xl animate-pulse opacity-30 text-blue-400 dark:text-blue-500">🌟</div>
+//         <div className="absolute top-20 right-16 text-3xl md:text-4xl animate-bounce opacity-40 text-purple-400 dark:text-purple-500" style={{animationDelay: '1s'}}>💫</div>
+//         <div className="absolute bottom-32 left-16 text-4xl md:text-5xl animate-pulse opacity-30 text-pink-400 dark:text-pink-500" style={{animationDelay: '2s'}}>⭐</div>
+//         <div className="absolute bottom-40 right-20 text-2xl md:text-3xl animate-bounce opacity-40 text-indigo-400 dark:text-indigo-500" style={{animationDelay: '0.5s'}}>✨</div>
+//       </div>
+
+//       <div className="container mx-auto py-8 md:py-12 max-w-7xl relative z-20">
+//         {/* Header */}
+//         <Header />
+
+//         {/* Stats Dashboard */}
+//         <StatsCard stats={{ level: userLevel, coins: userCoins, progress: overallProgress }} />
+        
+//         {/* Progress Section */}
+//         <ProgressBar progress={overallProgress} />
+
+//         {/* Learning Road */}
+//         <LearningRoad 
+//           modules={modules}
+//           hoveredModule={hoveredModule}
+//           setHoveredModule={setHoveredModule}
+//           handleUnlockModule={handleUnlockModule}
+//         />
+
+//         {/* Achievement Section */}
+//         <AchievementSection />
+
+//         {/* Testimonials Section */}
+//         <TestimonialsSection />
+//       </div>
+
+//       {/* Custom CSS for animations */}
+//       <style jsx>{`
+//         @keyframes float {
+//           0%, 100% { transform: translateY(0px) rotate(0deg); }
+//           50% { transform: translateY(-20px) rotate(90deg); }
+//         }
+        
+//         @keyframes slideIn {
+//           from { 
+//             opacity: 0; 
+//             transform: translateX(30px) scale(0.9); 
+//           }
+//           to { 
+//             opacity: 1; 
+//             transform: translateX(0) scale(1); 
+//           }
+//         }
+        
+//         .animate-slideIn {
+//           animation: slideIn 0.5s ease-out;
+//         }
+        
+//         .perspective-1000 {
+//           perspective: 1000px;
+//         }
+        
+//         .preserve-3d {
+//           transform-style: preserve-3d;
+//         }
+        
+//         .rotateY-6 {
+//           transform: rotateY(6deg);
+//         }
+        
+//         .-rotateY-6 {
+//           transform: rotateY(-6deg);
+//         }
+        
+//         .rotateY-3 {
+//           transform: rotateY(3deg);
+//         }
+        
+//         .-rotateY-3 {
+//           transform: rotateY(-3deg);
+//         }
+        
+//         .rotateX-2 {
+//           transform: rotateX(2deg);
+//         }
+
+//         .custom-scrollbar::-webkit-scrollbar {
+//           width: 4px;
+//         }
+        
+//         .custom-scrollbar::-webkit-scrollbar-track {
+//           background: rgba(229, 231, 235, 0.2);
+//           border-radius: 10px;
+//         }
+        
+//         .custom-scrollbar::-webkit-scrollbar-thumb {
+//           background: rgba(156, 163, 175, 0.5);
+//           border-radius: 10px;
+//         }
+        
+//         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+//           background: rgba(156, 163, 175, 0.7);
+//         }
+
+//         /* Dark mode scrollbar */
+//         .dark .custom-scrollbar::-webkit-scrollbar-track {
+//           background: rgba(55, 65, 81, 0.3);
+//         }
+        
+//         .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+//           background: rgba(107, 114, 128, 0.5);
+//         }
+        
+//         .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+//           background: rgba(107, 114, 128, 0.7);
+//         }
+//       `}</style>
+//     </div>
+//   );
+// }
+
+// export default LearnPage;
+
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { learningModules } from '@/data/learningModules';
-import { SparkleProps } from '@/types';
-import { Header } from '@/components/learn/Header';
-import { StatsCard } from '@/components/learn/StatsCard';
-import { ProgressBar } from '@/components/learn/ProgressBar';
-import { LearningRoad } from '@/components/learn/LearningRoad';
-import { TestimonialsSection } from '@/components/learn/TestimonialsSection';
-import { AchievementSection } from '@/components/learn/AchievementSection';
+import React, { useState } from "react";
+import { Timeline } from "@/components/ui/timeline";
+import { BookOpen, Target, TrendingUp, Shield, Award, Star, Trophy } from "lucide-react";
 
-function LearnPage() {
-  const [modules, setModules] = useState(learningModules);
-  const [userLevel, setUserLevel] = useState(1);
-  const [userCoins, setUserCoins] = useState(50);
-  const [overallProgress, setOverallProgress] = useState(20);
-  const [hoveredModule, setHoveredModule] = useState<number | null>(null);
-  const [sparkles, setSparkles] = useState<SparkleProps[]>([]);
-  const [darkMode, setDarkMode] = useState(false);
-
-  // Check for system dark mode preference
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e: MediaQueryListEvent) => setDarkMode(e.matches);
-    mediaQuery.addEventListener('change', handleChange);
-    
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
-
-  // Apply dark mode class to document
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
+export default function LearnPage() {
+  const [userProgress] = useState({
+    currentLevel: 1,
+    coins: 50,
+    overallProgress: 20,
+    modules: {
+      'money-basics': { completed: true, progress: 100 },
+      'budgeting': { completed: false, progress: 60 },
+      'saving': { completed: false, progress: 30 },
+      'investing': { completed: false, progress: 0 },
+      'credit': { completed: false, progress: 0 }
     }
-  }, [darkMode]);
+  });
 
-  // Generate floating sparkles
-  useEffect(() => {
-    const generateSparkles = () => {
-      const newSparkles = Array.from({ length: 10 }, (_, i) => ({
-        id: i,
-        left: Math.random() * 100,
-        top: Math.random() * 100,
-        delay: Math.random() * 4,
-        duration: 3 + Math.random() * 2,
-        size: 0.5 + Math.random() * 0.5
-      }));
-      setSparkles(newSparkles);
-    };
+  const data = [
+    {
+      title: "Welcome to Your Financial Mastery Journey",
+      content: (
+        <div className="space-y-6">
+          {/* Inspirational Quote */}
+          <div className="bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 rounded-2xl p-8 text-white shadow-2xl">
+            <div className="text-center mb-6">
+              <blockquote className="text-2xl font-bold italic mb-4">
+                "Financial peace isn't the acquisition of stuff. It's learning to live on less than you make, 
+                so you can give money back and have money to invest. You can't win until you do this."
+              </blockquote>
+              <cite className="text-lg opacity-90">— Dave Ramsey</cite>
+            </div>
+            
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                <BookOpen className="w-6 h-6" />
+              </div>
+              <h2 className="text-2xl font-bold">Master Money, Master Life</h2>
+            </div>
+            <p className="text-lg mb-6 opacity-90">
+              Transform your financial future with our comprehensive learning system designed for real-world success.
+            </p>
+            
+            {/* Action Buttons */}
+            <div className="flex flex-wrap gap-3 mb-6">
+              <div className="bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 text-sm font-medium flex items-center gap-2">
+                <Target className="w-4 h-4" />
+                Goal-Oriented Learning
+              </div>
+              <div className="bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 text-sm font-medium flex items-center gap-2">
+                <Award className="w-4 h-4" />
+                Earn Achievements
+              </div>
+              <div className="bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 text-sm font-medium flex items-center gap-2">
+                <TrendingUp className="w-4 h-4" />
+                Track Progress
+              </div>
+            </div>
 
-    generateSparkles();
-    const interval = setInterval(generateSparkles, 8000);
-    return () => clearInterval(interval);
-  }, []);
+            {/* Stats Cards */}
+            <div className="grid grid-cols-3 gap-4">
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20">
+                <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center mx-auto mb-2">
+                  <Trophy className="w-5 h-5 text-white" />
+                </div>
+                <div className="text-xs opacity-75 mb-1">Current Level</div>
+                <div className="text-2xl font-bold text-blue-300">{userProgress.currentLevel}</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20">
+                <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center mx-auto mb-2">
+                  <span className="text-white text-lg">💰</span>
+                </div>
+                <div className="text-xs opacity-75 mb-1">Knowledge Coins</div>
+                <div className="text-2xl font-bold text-orange-300">{userProgress.coins}</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20">
+                <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center mx-auto mb-2">
+                  <Target className="w-5 h-5 text-white" />
+                </div>
+                <div className="text-xs opacity-75 mb-1">Progress</div>
+                <div className="text-2xl font-bold text-green-300">{userProgress.overallProgress}%</div>
+              </div>
+            </div>
+          </div>
 
-  const handleUnlockModule = (moduleId, requiredCoins) => {
-    if (userCoins >= requiredCoins) {
-      setModules(modules.map(module => 
-        module.id === moduleId ? { ...module, unlocked: true } : module
-      ));
-      setUserCoins(userCoins - requiredCoins);
-      setTimeout(() => {
-        alert("🎉 Module unlocked! Welcome to your new adventure!");
-      }, 100);
-    } else {
-      alert(`💰 You need ${requiredCoins - userCoins} more coins to unlock this amazing module!`);
-    }
-  };
+          {/* Overall Progress Section */}
+          <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 shadow-lg">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <TrendingUp className="w-6 h-6 text-blue-500" />
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">Learning Progress</h3>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">{userProgress.overallProgress}%</span>
+                <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-sm">Active</span>
+              </div>
+            </div>
+            
+            {/* Progress Bar */}
+            <div className="relative mb-4">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 shadow-inner">
+                <div 
+                  className="bg-gradient-to-r from-blue-500 to-purple-600 h-4 rounded-full transition-all duration-500 relative shadow-sm"
+                  style={{ width: `${userProgress.overallProgress}%` }}
+                >
+                  <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center shadow-lg">
+                    <Star className="w-3 h-3 text-white" />
+                  </div>
+                </div>
+              </div>
+            </div>
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
+            <p className="text-center text-gray-700 dark:text-gray-300 mb-4">
+              Excellent progress! You're building strong financial foundations.
+            </p>
+
+            {/* Status Tags */}
+            <div className="flex justify-center gap-2">
+              <span className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-3 py-1 rounded-full text-sm flex items-center gap-1">
+                <Target className="w-3 h-3" /> On Track
+              </span>
+              <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-sm flex items-center gap-1">
+                <TrendingUp className="w-3 h-3" /> Growing
+              </span>
+              <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-3 py-1 rounded-full text-sm flex items-center gap-1">
+                <Shield className="w-3 h-3" /> Strong
+              </span>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "Module 1: Money Basics",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl p-6 text-white relative overflow-hidden shadow-xl">
+            <div className="absolute top-2 right-2">
+              <span className="bg-green-600/80 px-2 py-1 rounded-full text-xs font-medium">Beginner Friendly</span>
+            </div>
+            <div className="absolute top-2 left-2">
+              <span className="bg-blue-600/80 px-2 py-1 rounded-full text-xs font-medium">Foundation</span>
+            </div>
+            
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center">
+                <span className="text-2xl">💵</span>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold mb-1">Money Fundamentals</h3>
+                <p className="text-green-100 text-sm">Master the essential concepts that form the foundation of financial literacy</p>
+              </div>
+            </div>
+
+            {/* Module Progress */}
+            <div className="mb-6">
+              <div className="flex justify-between text-sm mb-2">
+                <span className="font-medium">Module Progress</span>
+                <span className="font-bold">{userProgress.modules['money-basics'].progress}%</span>
+              </div>
+              <div className="w-full bg-white/30 rounded-full h-3 shadow-inner">
+                <div 
+                  className="bg-white h-3 rounded-full transition-all duration-500 shadow-sm"
+                  style={{ width: `${userProgress.modules['money-basics'].progress}%` }}
+                ></div>
+              </div>
+            </div>
+
+            {/* Learning Content */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 mb-4">
+              <h4 className="font-semibold mb-3 text-green-100">What You'll Master:</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full"></span>
+                  Understanding different types of money
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full"></span>
+                  How banking systems work
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full"></span>
+                  Interest rates and compound growth
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full"></span>
+                  Digital vs physical payments
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <img
+                src="https://images.pexels.com/photos/259027/pexels-photo-259027.jpeg?auto=compress&cs=tinysrgb&w=400"
+                alt="Money and coins representing basic currency concepts"
+                className="h-24 w-full rounded-lg object-cover shadow-lg"
+              />
+              <img
+                src="https://images.pexels.com/photos/164527/pexels-photo-164527.jpeg?auto=compress&cs=tinysrgb&w=400"
+                alt="Calculator and financial planning tools"
+                className="h-24 w-full rounded-lg object-cover shadow-lg"
+              />
+            </div>
+          </div>
+
+          {/* Key Learning Points */}
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+            <h4 className="text-gray-900 dark:text-white font-medium mb-4 flex items-center gap-2">
+              <BookOpen className="w-5 h-5 text-green-500" />
+              Core Learning Objectives
+            </h4>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3 text-gray-700 dark:text-gray-300 text-sm">
+                <div className="w-6 h-6 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  ✓
+                </div>
+                <div>
+                  <strong>Money Evolution:</strong> Learn how money evolved from bartering to digital currencies
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-gray-700 dark:text-gray-300 text-sm">
+                <div className="w-6 h-6 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  ✓
+                </div>
+                <div>
+                  <strong>Banking Basics:</strong> Understand checking, savings, and how banks protect your money
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-gray-600 dark:text-gray-400 text-sm">
+                <div className="w-6 h-6 bg-gray-100 dark:bg-gray-700 text-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  →
+                </div>
+                <div>
+                  <strong>Interest & Growth:</strong> Discover how your money can grow through compound interest
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-gray-600 dark:text-gray-400 text-sm">
+                <div className="w-6 h-6 bg-gray-100 dark:bg-gray-700 text-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  →
+                </div>
+                <div>
+                  <strong>Modern Payments:</strong> Master digital wallets, online banking, and payment security
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "Module 2: Smart Budgeting",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl p-6 text-white relative shadow-xl">
+            <div className="absolute top-2 right-2">
+              <span className="bg-blue-600/80 px-2 py-1 rounded-full text-xs font-medium">Practical Skills</span>
+            </div>
+            
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center">
+                <span className="text-2xl">📊</span>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold mb-1">Smart Budgeting Mastery</h3>
+                <p className="text-blue-100 text-sm">Learn to plan, track, and optimize your spending with proven strategies</p>
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <div className="flex justify-between text-sm mb-2">
+                <span className="font-medium">Module Progress</span>
+                <span className="font-bold">{userProgress.modules['budgeting'].progress}%</span>
+              </div>
+              <div className="w-full bg-white/30 rounded-full h-3 shadow-inner">
+                <div 
+                  className="bg-white h-3 rounded-full transition-all duration-500 shadow-sm"
+                  style={{ width: `${userProgress.modules['budgeting'].progress}%` }}
+                ></div>
+              </div>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 mb-4">
+              <h4 className="font-semibold mb-3 text-blue-100">Budgeting Skills You'll Develop:</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full"></span>
+                  50/30/20 budgeting method
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full"></span>
+                  Zero-based budgeting
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full"></span>
+                  Expense categorization
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full"></span>
+                  Budget tracking tools
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <img
+                src="https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&w=400"
+                alt="Budget planning with calculator and spreadsheet"
+                className="h-24 w-full rounded-lg object-cover shadow-lg"
+              />
+              <img
+                src="https://images.pexels.com/photos/7681107/pexels-photo-7681107.jpeg?auto=compress&cs=tinysrgb&w=400"
+                alt="Financial planning and budgeting workspace"
+                className="h-24 w-full rounded-lg object-cover shadow-lg"
+              />
+            </div>
+          </div>
+
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+            <h4 className="text-gray-900 dark:text-white font-medium mb-4 flex items-center gap-2">
+              <Target className="w-5 h-5 text-blue-500" />
+              Learning Milestones
+            </h4>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3 text-gray-700 dark:text-gray-300 text-sm">
+                <div className="w-6 h-6 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  ✓
+                </div>
+                <div>
+                  <strong>Income Assessment:</strong> Calculate and categorize all sources of income
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-gray-700 dark:text-gray-300 text-sm">
+                <div className="w-6 h-6 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  ✓
+                </div>
+                <div>
+                  <strong>Expense Tracking:</strong> Master different methods to track and categorize expenses
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-gray-600 dark:text-gray-400 text-sm">
+                <div className="w-6 h-6 bg-gray-100 dark:bg-gray-700 text-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  →
+                </div>
+                <div>
+                  <strong>Budget Creation:</strong> Build your first personalized budget using proven frameworks
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-gray-600 dark:text-gray-400 text-sm">
+                <div className="w-6 h-6 bg-gray-100 dark:bg-gray-700 text-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  →
+                </div>
+                <div>
+                  <strong>Budget Optimization:</strong> Learn to adjust and improve your budget over time
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "Module 3: Strategic Saving",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl p-6 text-white relative shadow-xl">
+            <div className="absolute top-2 right-2">
+              <span className="bg-emerald-600/80 px-2 py-1 rounded-full text-xs font-medium">Wealth Building</span>
+            </div>
+            
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center">
+                <span className="text-2xl">🏦</span>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold mb-1">Strategic Saving Systems</h3>
+                <p className="text-emerald-100 text-sm">Build wealth systematically with smart saving strategies and emergency planning</p>
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <div className="flex justify-between text-sm mb-2">
+                <span className="font-medium">Module Progress</span>
+                <span className="font-bold">{userProgress.modules['saving'].progress}%</span>
+              </div>
+              <div className="w-full bg-white/30 rounded-full h-3 shadow-inner">
+                <div 
+                  className="bg-white h-3 rounded-full transition-all duration-500 shadow-sm"
+                  style={{ width: `${userProgress.modules['saving'].progress}%` }}
+                ></div>
+              </div>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 mb-4">
+              <h4 className="font-semibold mb-3 text-emerald-100">Saving Strategies You'll Learn:</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full"></span>
+                  Emergency fund building
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full"></span>
+                  High-yield savings accounts
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full"></span>
+                  Automated saving systems
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full"></span>
+                  Goal-based saving plans
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <img
+                src="https://images.pexels.com/photos/3943716/pexels-photo-3943716.jpeg?auto=compress&cs=tinysrgb&w=400"
+                alt="Piggy bank and savings concept"
+                className="h-24 w-full rounded-lg object-cover shadow-lg"
+              />
+              <img
+                src="https://images.pexels.com/photos/4386321/pexels-photo-4386321.jpeg?auto=compress&cs=tinysrgb&w=400"
+                alt="Emergency fund and financial security"
+                className="h-24 w-full rounded-lg object-cover shadow-lg"
+              />
+            </div>
+          </div>
+
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+            <h4 className="text-gray-900 dark:text-white font-medium mb-4 flex items-center gap-2">
+              <Shield className="w-5 h-5 text-emerald-500" />
+              Saving Milestones & Goals
+            </h4>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3 text-gray-600 dark:text-gray-400 text-sm">
+                <div className="w-6 h-6 bg-gray-100 dark:bg-gray-700 text-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  →
+                </div>
+                <div>
+                  <strong>Emergency Fund Foundation:</strong> Build your first $500 emergency fund
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-gray-600 dark:text-gray-400 text-sm">
+                <div className="w-6 h-6 bg-gray-100 dark:bg-gray-700 text-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  →
+                </div>
+                <div>
+                  <strong>Account Optimization:</strong> Choose the best savings accounts for your goals
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-gray-600 dark:text-gray-400 text-sm">
+                <div className="w-6 h-6 bg-gray-100 dark:bg-gray-700 text-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  →
+                </div>
+                <div>
+                  <strong>Automation Setup:</strong> Create systems that save money automatically
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-gray-600 dark:text-gray-400 text-sm">
+                <div className="w-6 h-6 bg-gray-100 dark:bg-gray-700 text-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  →
+                </div>
+                <div>
+                  <strong>Goal Achievement:</strong> Plan and save for specific financial goals
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "Module 4: Investment Fundamentals",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl p-6 text-white relative shadow-xl">
+            <div className="absolute top-2 right-2">
+              <span className="bg-purple-600/80 px-2 py-1 rounded-full text-xs font-medium">Advanced</span>
+            </div>
+            
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center">
+                <span className="text-2xl">📈</span>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold mb-1">Investment Mastery</h3>
+                <p className="text-purple-100 text-sm">Grow your wealth through strategic investing and understanding market dynamics</p>
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <div className="flex justify-between text-sm mb-2">
+                <span className="font-medium">Module Progress</span>
+                <span className="font-bold">{userProgress.modules['investing'].progress}%</span>
+              </div>
+              <div className="w-full bg-white/30 rounded-full h-3 shadow-inner">
+                <div 
+                  className="bg-white h-3 rounded-full transition-all duration-500 shadow-sm"
+                  style={{ width: `${userProgress.modules['investing'].progress}%` }}
+                ></div>
+              </div>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 mb-4">
+              <h4 className="font-semibold mb-3 text-purple-100">Investment Concepts You'll Master:</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full"></span>
+                  Stock market fundamentals
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full"></span>
+                  Risk vs. return analysis
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full"></span>
+                  Portfolio diversification
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full"></span>
+                  Long-term wealth strategies
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <img
+                src="https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&w=400"
+                alt="Stock market charts and investment analysis"
+                className="h-24 w-full rounded-lg object-cover shadow-lg"
+              />
+              <img
+                src="https://images.pexels.com/photos/7681107/pexels-photo-7681107.jpeg?auto=compress&cs=tinysrgb&w=400"
+                alt="Investment growth and financial planning"
+                className="h-24 w-full rounded-lg object-cover shadow-lg"
+              />
+            </div>
+          </div>
+
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+            <h4 className="text-gray-900 dark:text-white font-medium mb-4 flex items-center gap-2">
+              <TrendingUp className="w-5 h-5 text-purple-500" />
+              Investment Learning Path
+            </h4>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3 text-gray-600 dark:text-gray-400 text-sm">
+                <div className="w-6 h-6 bg-gray-100 dark:bg-gray-700 text-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  →
+                </div>
+                <div>
+                  <strong>Investment Basics:</strong> Understand stocks, bonds, and mutual funds
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-gray-600 dark:text-gray-400 text-sm">
+                <div className="w-6 h-6 bg-gray-100 dark:bg-gray-700 text-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  →
+                </div>
+                <div>
+                  <strong>Risk Management:</strong> Learn to balance risk and potential returns
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-gray-600 dark:text-gray-400 text-sm">
+                <div className="w-6 h-6 bg-gray-100 dark:bg-gray-700 text-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  →
+                </div>
+                <div>
+                  <strong>Portfolio Building:</strong> Create a diversified investment portfolio
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-gray-600 dark:text-gray-400 text-sm">
+                <div className="w-6 h-6 bg-gray-100 dark:bg-gray-700 text-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  →
+                </div>
+                <div>
+                  <strong>Long-term Strategy:</strong> Develop strategies for long-term wealth building
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "Module 5: Credit Mastery",
+      titleHighlight: "Module 5",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-xl p-6 text-white relative shadow-xl">
+            <div className="absolute top-2 right-2">
+              <span className="bg-orange-600/80 px-2 py-1 rounded-full text-xs font-medium">Essential Skills</span>
+            </div>
+            
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center">
+                <span className="text-2xl">💳</span>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold mb-1">Credit & Debt Mastery</h3>
+                <p className="text-orange-100 text-sm">Master credit building and debt management for financial freedom</p>
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <div className="flex justify-between text-sm mb-2">
+                <span className="font-medium">Module Progress</span>
+                <span className="font-bold">{userProgress.modules['credit'].progress}%</span>
+              </div>
+              <div className="w-full bg-white/30 rounded-full h-3 shadow-inner">
+                <div 
+                  className="bg-white h-3 rounded-full transition-all duration-500 shadow-sm"
+                  style={{ width: `${userProgress.modules['credit'].progress}%` }}
+                ></div>
+              </div>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 mb-4">
+              <h4 className="font-semibold mb-3 text-orange-100">Credit Skills You'll Develop:</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full"></span>
+                  Credit score optimization
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full"></span>
+                  Responsible credit card use
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full"></span>
+                  Debt elimination strategies
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-white rounded-full"></span>
+                  Long-term credit building
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <img
+                src="https://images.pexels.com/photos/4386321/pexels-photo-4386321.jpeg?auto=compress&cs=tinysrgb&w=400"
+                alt="Credit cards and financial planning"
+                className="h-24 w-full rounded-lg object-cover shadow-lg"
+              />
+              <img
+                src="https://images.pexels.com/photos/3943716/pexels-photo-3943716.jpeg?auto=compress&cs=tinysrgb&w=400"
+                alt="Credit score and financial health"
+                className="h-24 w-full rounded-lg object-cover shadow-lg"
+              />
+            </div>
+          </div>
+
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+            <h4 className="text-gray-900 dark:text-white font-medium mb-4 flex items-center gap-2">
+              <Shield className="w-5 h-5 text-orange-500" />
+              Credit Building Roadmap
+            </h4>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3 text-gray-600 dark:text-gray-400 text-sm">
+                <div className="w-6 h-6 bg-gray-100 dark:bg-gray-700 text-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  →
+                </div>
+                <div>
+                  <strong>Credit Fundamentals:</strong> Understand how credit scores work and what affects them
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-gray-600 dark:text-gray-400 text-sm">
+                <div className="w-6 h-6 bg-gray-100 dark:bg-gray-700 text-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  →
+                </div>
+                <div>
+                  <strong>Responsible Usage:</strong> Learn to use credit cards wisely and avoid common pitfalls
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-gray-600 dark:text-gray-400 text-sm">
+                <div className="w-6 h-6 bg-gray-100 dark:bg-gray-700 text-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  →
+                </div>
+                <div>
+                  <strong>Debt Strategy:</strong> Master proven debt payoff methods like avalanche and snowball
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-gray-600 dark:text-gray-400 text-sm">
+                <div className="w-6 h-6 bg-gray-100 dark:bg-gray-700 text-gray-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  →
+                </div>
+                <div>
+                  <strong>Credit Optimization:</strong> Build excellent credit for future financial opportunities
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Call to Action */}
+          <div className="bg-gradient-to-r from-pink-500 to-violet-500 rounded-xl p-6 text-center shadow-xl">
+            <h4 className="text-white text-xl font-bold mb-2">Ready to Transform Your Financial Future?</h4>
+            <p className="text-white/90 mb-4">
+              Join thousands of learners who have mastered these essential financial skills. 
+              Your journey to financial freedom starts with one click. ✨
+            </p>
+            
+            {/* Success Stats */}
+            <div className="grid grid-cols-3 gap-4 mb-6">
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
+                <div className="text-2xl font-bold text-white">12k+</div>
+                <div className="text-xs text-white/80">Success Stories</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
+                <div className="text-2xl font-bold text-white">97%</div>
+                <div className="text-xs text-white/80">Completion Rate</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
+                <div className="text-2xl font-bold text-white flex items-center justify-center gap-1">
+                  4.9 <Star className="w-4 h-4" />
+                </div>
+                <div className="text-xs text-white/80">Student Rating</div>
+              </div>
+            </div>
+
+            <button className="bg-white text-purple-600 font-bold py-3 px-8 rounded-xl hover:bg-white/90 transition-colors flex items-center gap-2 mx-auto shadow-lg">
+              <Award className="w-5 h-5" />
+              Start Your Financial Journey
+              <span className="text-lg">🎁</span>
+            </button>
+            <p className="text-white/80 text-sm mt-2">
+              🎁 Begin today and receive 100 bonus knowledge coins!
+            </p>
+          </div>
+        </div>
+      ),
+    },
+  ];
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-cyan-600 via-purple-800 to-purple-800 dark:from-gray-900 dark:via-indigo-950 dark:to-purple-950 overflow-x-hidden relative transition-colors duration-300`}>
-      {/* Animated Background Pattern */}
-      <div className="absolute inset-0 opacity-10 dark:opacity-20">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.1) 0%, transparent 50%), 
-                           radial-gradient(circle at 75% 75%, rgba(236, 72, 153, 0.1) 0%, transparent 50%)`,
-        }}></div>
+    <div className="relative w-full overflow-clip">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-2 h-2 bg-yellow-400 rounded-full opacity-60 animate-pulse"></div>
+        <div className="absolute top-40 right-20 w-1 h-1 bg-blue-400 rounded-full opacity-40 animate-pulse delay-1000"></div>
+        <div className="absolute bottom-32 left-1/4 w-3 h-3 bg-pink-400 rounded-full opacity-50 animate-pulse delay-2000"></div>
+        <div className="absolute top-60 left-1/3 w-1 h-1 bg-green-400 rounded-full opacity-60 animate-pulse delay-3000"></div>
+        <div className="absolute bottom-48 right-1/3 w-2 h-2 bg-purple-400 rounded-full opacity-40 animate-pulse delay-4000"></div>
       </div>
-
-      {/* Dark Mode Toggle
-      <button 
-        onClick={toggleDarkMode}
-        className="fixed top-4 right-4 z-50 bg-white dark:bg-gray-800 rounded-full p-2 shadow-md dark:shadow-gray-900/30 transition-all duration-300"
-      >
-        {darkMode ? (
-          <svg xmlns="http://www.w3.org/2000/svg\" className="h-6 w-6 text-yellow-400\" fill="none\" viewBox="0 0 24 24\" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-          </svg>
-        ) : (
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-          </svg>
-        )}
-      </button> */}
-
-      {/* Dynamic Floating Elements */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-10">
-        {sparkles.map((sparkle) => (
-          <div
-            key={sparkle.id}
-            className="absolute text-yellow-300 dark:text-yellow-200 opacity-60"
-            style={{
-              left: `${sparkle.left}%`,
-              top: `${sparkle.top}%`,
-              fontSize: `${sparkle.size}rem`,
-              animation: `float ${sparkle.duration}s ease-in-out infinite`,
-              animationDelay: `${sparkle.delay}s`
-            }}
-          >
-            ✨
-          </div>
-        ))}
-        
-        {/* Corner decorations */}
-        <div className="absolute top-10 left-10 text-5xl md:text-6xl animate-pulse opacity-30 text-blue-400 dark:text-blue-500">🌟</div>
-        <div className="absolute top-20 right-16 text-3xl md:text-4xl animate-bounce opacity-40 text-purple-400 dark:text-purple-500" style={{animationDelay: '1s'}}>💫</div>
-        <div className="absolute bottom-32 left-16 text-4xl md:text-5xl animate-pulse opacity-30 text-pink-400 dark:text-pink-500" style={{animationDelay: '2s'}}>⭐</div>
-        <div className="absolute bottom-40 right-20 text-2xl md:text-3xl animate-bounce opacity-40 text-indigo-400 dark:text-indigo-500" style={{animationDelay: '0.5s'}}>✨</div>
-      </div>
-
-      <div className="container mx-auto py-8 md:py-12 max-w-7xl relative z-20">
-        {/* Header */}
-        <Header />
-
-        {/* Stats Dashboard */}
-        <StatsCard stats={{ level: userLevel, coins: userCoins, progress: overallProgress }} />
-        
-        {/* Progress Section */}
-        <ProgressBar progress={overallProgress} />
-
-        {/* Learning Road */}
-        <LearningRoad 
-          modules={modules}
-          hoveredModule={hoveredModule}
-          setHoveredModule={setHoveredModule}
-          handleUnlockModule={handleUnlockModule}
-        />
-
-        {/* Achievement Section */}
-        <AchievementSection />
-
-        {/* Testimonials Section */}
-        <TestimonialsSection />
-      </div>
-
-      {/* Custom CSS for animations */}
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(90deg); }
-        }
-        
-        @keyframes slideIn {
-          from { 
-            opacity: 0; 
-            transform: translateX(30px) scale(0.9); 
-          }
-          to { 
-            opacity: 1; 
-            transform: translateX(0) scale(1); 
-          }
-        }
-        
-        .animate-slideIn {
-          animation: slideIn 0.5s ease-out;
-        }
-        
-        .perspective-1000 {
-          perspective: 1000px;
-        }
-        
-        .preserve-3d {
-          transform-style: preserve-3d;
-        }
-        
-        .rotateY-6 {
-          transform: rotateY(6deg);
-        }
-        
-        .-rotateY-6 {
-          transform: rotateY(-6deg);
-        }
-        
-        .rotateY-3 {
-          transform: rotateY(3deg);
-        }
-        
-        .-rotateY-3 {
-          transform: rotateY(-3deg);
-        }
-        
-        .rotateX-2 {
-          transform: rotateX(2deg);
-        }
-
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 4px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(229, 231, 235, 0.2);
-          border-radius: 10px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(156, 163, 175, 0.5);
-          border-radius: 10px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(156, 163, 175, 0.7);
-        }
-
-        /* Dark mode scrollbar */
-        .dark .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(55, 65, 81, 0.3);
-        }
-        
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(107, 114, 128, 0.5);
-        }
-        
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(107, 114, 128, 0.7);
-        }
-      `}</style>
+      
+      <Timeline data={data} />
     </div>
   );
 }
-
-export default LearnPage;
