@@ -1456,19 +1456,12 @@ export default function LearnPage() {
 
   const data = [
     {
-      title: "Welcome to Your Financial Mastery Journey",
+      title: " to Your Financial Mastery Journey",
+      titleHighlight: "Welcome",
       content: (
         <div className="space-y-6">
           {/* Inspirational Quote */}
           <div className="bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 rounded-2xl p-8 text-white shadow-2xl">
-            <div className="text-center mb-6">
-              <blockquote className="text-2xl font-bold italic mb-4">
-                "Financial peace isn't the acquisition of stuff. It's learning to live on less than you make, 
-                so you can give money back and have money to invest. You can't win until you do this."
-              </blockquote>
-              <cite className="text-lg opacity-90">— Dave Ramsey</cite>
-            </div>
-            
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
                 <BookOpen className="w-6 h-6" />
@@ -1569,7 +1562,8 @@ export default function LearnPage() {
       ),
     },
     {
-      title: "Module 1: Money Basics",
+      title: "Money Basics",
+      titleHighlight: "Module 1:",
       content: (
         <div className="space-y-6">
           <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl p-6 text-white relative overflow-hidden shadow-xl">
@@ -1686,7 +1680,8 @@ export default function LearnPage() {
       ),
     },
     {
-      title: "Module 2: Smart Budgeting",
+      title: "Smart Budgeting",
+      titleHighlight: "Module 2:",
       content: (
         <div className="space-y-6">
           <div className="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl p-6 text-white relative shadow-xl">
@@ -1797,7 +1792,8 @@ export default function LearnPage() {
       ),
     },
     {
-      title: "Module 3: Strategic Saving",
+      title: "Strategic Saving",
+      titleHighlight: "Module 3:",
       content: (
         <div className="space-y-6">
           <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl p-6 text-white relative shadow-xl">
@@ -1908,7 +1904,8 @@ export default function LearnPage() {
       ),
     },
     {
-      title: "Module 4: Investment Fundamentals",
+      title: "Investment Fundamentals",
+      titleHighlight: "Module 4:",
       content: (
         <div className="space-y-6">
           <div className="bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl p-6 text-white relative shadow-xl">
@@ -2019,8 +2016,8 @@ export default function LearnPage() {
       ),
     },
     {
-      title: "Module 5: Credit Mastery",
-      titleHighlight: "Module 5",
+      title: "Credit Mastery",
+      titleHighlight: "Module 5:",
       content: (
         <div className="space-y-6">
           <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-xl p-6 text-white relative shadow-xl">
@@ -2169,16 +2166,7 @@ export default function LearnPage() {
   ];
 
   return (
-    <div className="relative w-full overflow-clip">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-2 h-2 bg-yellow-400 rounded-full opacity-60 animate-pulse"></div>
-        <div className="absolute top-40 right-20 w-1 h-1 bg-blue-400 rounded-full opacity-40 animate-pulse delay-1000"></div>
-        <div className="absolute bottom-32 left-1/4 w-3 h-3 bg-pink-400 rounded-full opacity-50 animate-pulse delay-2000"></div>
-        <div className="absolute top-60 left-1/3 w-1 h-1 bg-green-400 rounded-full opacity-60 animate-pulse delay-3000"></div>
-        <div className="absolute bottom-48 right-1/3 w-2 h-2 bg-purple-400 rounded-full opacity-40 animate-pulse delay-4000"></div>
-      </div>
-      
+    <div className="relative w-full overflow-clip">      
       <Timeline data={data} />
     </div>
   );
