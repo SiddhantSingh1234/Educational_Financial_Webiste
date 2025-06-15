@@ -116,8 +116,11 @@ export const Highlight = ({
       initial={{
         backgroundSize: "0% 100%",
       }}
-      animate={{
+      whileInView={{
         backgroundSize: "100% 100%",
+      }}
+      viewport={{
+        amount: 0.5,
       }}
       transition={{
         duration: 2,
@@ -130,7 +133,7 @@ export const Highlight = ({
         display: "inline",
       }}
       className={cn(
-        `relative inline-block rounded-lg bg-gradient-to-r from-blue-300 via-sky-200 to-indigo-300 px-1 pb-1 dark:from-blue-700 dark:via-indigo-800 dark:to-purple-800`,
+        `relative inline-block rounded-lg bg-gradient-to-r from-blue-300 via-sky-200 to-indigo-300 px-1 pb-1 dark:from-blue-700 dark:via-indigo-800 dark:to-purple-800 leading-tight`,
         className,
       )}
     >
