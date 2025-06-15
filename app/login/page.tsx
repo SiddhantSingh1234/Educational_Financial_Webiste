@@ -17,7 +17,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { toast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -30,7 +30,8 @@ const formSchema = z.object({
 
 export default function LoginPage() {
   const router = useRouter();
-  
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -39,15 +40,51 @@ export default function LoginPage() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    toast({
-      title: "Login successful!",
-      description: "Welcome back to CoinKids!",
-    });
+  // function onSubmit(values: z.infer<typeof formSchema>) {
+  //   toast({
+  //     title: "Login successful!",
+  //     description: "Welcome back to CoinKids!",
+  //   });
     
-    setTimeout(() => {
+  //   setTimeout(() => {
+  //     router.push("/profile");
+  //   }, 1000);
+  // }
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      });
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        toast({
+          title: "Error",
+          description: data.error,
+          variant: "destructive",
+        });
+        return;
+      }
+  
+      // Store the token
+      localStorage.setItem('token', data.token);
+  
+      toast({
+        title: "Login successful!",
+        description: "Welcome back to CoinKids!",
+      });
+      
       router.push("/profile");
-    }, 1000);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    }
   }
 
   return (

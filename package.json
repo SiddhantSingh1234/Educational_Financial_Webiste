@@ -38,11 +38,12 @@
     "@radix-ui/react-toggle": "^1.1.0",
     "@radix-ui/react-toggle-group": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.2",
-    "@tabler/icons-react": "^3.33.0",
+    "@tabler/icons-react": "^3.34.0",
     "@types/node": "20.6.2",
     "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.15",
+    "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
@@ -52,8 +53,11 @@
     "eslint-config-next": "13.5.1",
     "framer-motion": "^11.0.8",
     "input-otp": "^1.2.4",
+    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.446.0",
     "mini-svg-data-uri": "^1.4.4",
+    "mongodb": "^6.17.0",
+    "mongoose": "^8.15.1",
     "motion": "^12.16.0",
     "next": "13.5.1",
     "next-themes": "^0.3.0",
@@ -70,6 +74,24 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.2.2",
     "vaul": "^0.9.9",
-    "zod": "^3.23.8"
-  }
+    "zod": "^3.23.8",
+    "zustand": "^5.0.5"
+  },
+  "description": "",
+  "main": "next.config.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SiddhantSingh1234/Educational_Financial_Webiste.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/SiddhantSingh1234/Educational_Financial_Webiste/issues"
+  },
+  "homepage": "https://github.com/SiddhantSingh1234/Educational_Financial_Webiste#readme"
 }
