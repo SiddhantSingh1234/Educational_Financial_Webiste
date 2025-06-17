@@ -18,11 +18,11 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { toast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
-  fullName: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
+  username: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
   }),
   email: z.string().email({
     message: "Please enter a valid email address.",
@@ -30,14 +30,11 @@ const formSchema = z.object({
   password: z.string().min(6, {
     message: "Password must be at least 6 characters.",
   }),
-  age: z.string().refine((val) => {
-    const age = parseInt(val);
-    return !isNaN(age) && age >= 8 && age <= 13;
-  }, {
-    message: "Age must be between 8 and 13 years.",
+  school: z.string().min(1, {
+    message: "School name is required.",
   }),
-  parentEmail: z.string().email({
-    message: "Please enter a valid parent email address.",
+  city: z.string().min(1, {
+    message: "City is required.",
   }),
   agreeTerms: z.boolean().refine((val) => val === true, {
     message: "You must agree to the terms and conditions.",
@@ -46,28 +43,52 @@ const formSchema = z.object({
 
 export default function SignUpPage() {
   const router = useRouter();
-  
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      fullName: "",
+      username: "",
       email: "",
       password: "",
-      age: "",
-      parentEmail: "",
+      school: "",
+      city: "",
       agreeTerms: false,
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    toast({
-      title: "Account created!",
-      description: "Welcome to CoinKids! You can now login to start your financial journey.",
-    });
-    
-    setTimeout(() => {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast({
+          title: "Error",
+          description: data.error,
+          variant: "destructive",
+        });
+        return;
+      }
+
+      toast({
+        title: "Account created!",
+        description: "Welcome to CoinKids! You can now login to start your financial journey.",
+      });
+
       router.push("/login");
-    }, 2000);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    }
   }
 
   return (
@@ -90,7 +111,7 @@ export default function SignUpPage() {
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 <FormField
                   control={form.control}
-                  name="fullName"
+                  name="username"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Full Name</FormLabel>
@@ -132,12 +153,12 @@ export default function SignUpPage() {
                 
                 <FormField
                   control={form.control}
-                  name="age"
+                  name="school"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Age</FormLabel>
+                      <FormLabel>School Name</FormLabel>
                       <FormControl>
-                        <Input type="number" placeholder="Your age" {...field} />
+                        <Input type="string" placeholder="Your School Name" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -146,12 +167,12 @@ export default function SignUpPage() {
                 
                 <FormField
                   control={form.control}
-                  name="parentEmail"
+                  name="city"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Parent's Email</FormLabel>
+                      <FormLabel>City</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter parent's email" {...field} />
+                        <Input type="string" placeholder="Your City" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -171,7 +192,7 @@ export default function SignUpPage() {
                       </FormControl>
                       <div className="space-y-1 leading-none">
                         <FormLabel>
-                          I agree to the <Link href="/terms" className="text-blue-500 hover:underline">Terms of Service</Link> and <Link href="/privacy" className=\"text-blue-500 hover:underline">Privacy Policy</Link>
+                          I agree to the <Link href="/terms" className="text-blue-500 hover:underline">Terms of Service</Link> and <Link href="/privacy" className="text-blue-500 hover:underline">Privacy Policy</Link>
                         </FormLabel>
                         <FormMessage />
                       </div>
