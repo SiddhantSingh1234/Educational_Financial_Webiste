@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -13,6 +13,26 @@ interface MobileMenuProps {
 
 const MobileMenu = ({ pathname }: MobileMenuProps) => {
   const [open, setOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const checkAuth = () => {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+      setIsLoggedIn(!!token);
+    };
+    checkAuth();
+    window.addEventListener('authChange', checkAuth);
+    return () => window.removeEventListener('authChange', checkAuth);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    setOpen(false);
+    window.dispatchEvent(new Event('authChange'));
+    // Optionally redirect
+    window.location.href = '/';
+  };
 
   return (
     <div className="md:hidden">
@@ -72,12 +92,25 @@ const MobileMenu = ({ pathname }: MobileMenuProps) => {
               Contact
             </Link>
             <div className="flex flex-col gap-2 mt-4">
-              <Link href="/login" onClick={() => setOpen(false)}>
-                <Button variant="outline" className="w-full">Log in</Button>
-              </Link>
-              <Link href="/signup" onClick={() => setOpen(false)}>
-                <Button className="w-full">Sign Up</Button>
-              </Link>
+              {isLoggedIn ? (
+                <>
+                  <Link href="/profile" onClick={() => setOpen(false)}>
+                    <Button variant="outline" className="w-full">Profile</Button>
+                  </Link>
+                  <Button className="w-full" variant="destructive" onClick={handleLogout}>
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link href="/login" onClick={() => setOpen(false)}>
+                    <Button variant="outline" className="w-full">Log in</Button>
+                  </Link>
+                  <Link href="/signup" onClick={() => setOpen(false)}>
+                    <Button className="w-full">Sign Up</Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </SheetContent>

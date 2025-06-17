@@ -71,6 +71,7 @@ export default function LoginPage() {
   
       // Store the token
       localStorage.setItem('token', data.token);
+      window.dispatchEvent(new Event('authChange'));
   
       toast({
         title: "Login successful!",

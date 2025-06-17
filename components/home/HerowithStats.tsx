@@ -9,6 +9,8 @@ import { AuroraBackground } from '@/components/ui/aurora-background';
 import { Spotlight } from '@/components/ui/spotlight';
 import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
 import { Meteors } from '@/components/ui/meteors';
+import FloatingIcons from '@/components/home/FloatingIcons';
+import FloatingElementsStats from '@/components/home/FloatingElementsStats';
 
 const stats = [
   { 
@@ -104,33 +106,7 @@ const HeroStatsSection = () => {
       </div>
 
       {/* Floating Financial Icons - More Vibrant */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(15)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute text-white/80 drop-shadow-lg"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              fontSize: `${Math.random() * 30 + 30}px`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              rotate: [0, 20, -20, 0],
-              scale: [1, 1.3, 1],
-              opacity: [0.6, 1, 0.6],
-            }}
-            transition={{
-              duration: Math.random() * 5 + 5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: Math.random() * 3,
-            }}
-          >
-            {i % 3 === 0 ? <Coins /> : i % 3 === 1 ? <Sparkles /> : <TrendingUp />}
-          </motion.div>
-        ))}
-      </div>
+      <FloatingIcons />
 
       {/* Enhanced Animated Bubbles - More Prominent
       <div className="absolute inset-0 opacity-60 dark:opacity-20">
@@ -258,32 +234,7 @@ const HeroStatsSection = () => {
       {/* STATS SECTION - Enhanced for light mode */}
       <div className="relative z-10 py-20 bg-slate-900 dark:bg-slate-950">
         {/* Additional floating decorative elements for stats section */}
-        <div className="absolute inset-0 overflow-hidden">
-          {[...Array(8)].map((_, i) => (
-            <motion.div
-              key={`stats-${i}`}
-              className="absolute text-white/20"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                fontSize: `${Math.random() * 20 + 20}px`,
-              }}
-              animate={{
-                y: [0, -20, 0],
-                rotate: [0, 10, -10, 0],
-                opacity: [0.2, 0.4, 0.2],
-              }}
-              transition={{
-                duration: Math.random() * 8 + 6,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: Math.random() * 3,
-              }}
-            >
-              <Sparkles />
-            </motion.div>
-          ))}
-        </div>
+        <FloatingElementsStats />
 
         {/* Enhanced Background Gradients for Stats Section */}
         <div className="absolute inset-0">

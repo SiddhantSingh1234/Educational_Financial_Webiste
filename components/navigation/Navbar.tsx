@@ -6,9 +6,49 @@ import { Wallet, Coins, Trophy, TowerControl as GameController, BookOpen, User }
 import { usePathname } from 'next/navigation';
 import MobileMenu from './MobileMenu';
 import { ThemeToggle } from '../ui/theme-toggle';
+import { useState, useEffect, useRef } from 'react';
 
 const Navbar = () => {
   const pathname = usePathname();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const checkAuth = () => {
+      const token = localStorage.getItem('token');
+      setIsLoggedIn(!!token);
+    };
+    window.addEventListener('authChange', checkAuth);
+    return () => window.removeEventListener('authChange', checkAuth);
+  }, []);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setDropdownOpen(false);
+      }
+    }
+    if (dropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [dropdownOpen]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    setDropdownOpen(false);
+    // Optionally, redirect to home or login
+    window.dispatchEvent(new Event('authChange'));
+    window.location.href = '/';
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -71,12 +111,44 @@ const Navbar = () => {
             <ThemeToggle />
           </nav>
           <div className="flex items-center gap-2">
-            <Link href="/login">
-              <Button variant="outline" size="sm">Log in</Button>
-            </Link>
-            <Link href="/signup">
-              <Button size="sm">Sign Up</Button>
-            </Link>
+            {isLoggedIn ? (
+              <div className="relative" ref={dropdownRef}>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setDropdownOpen((open) => !open)}
+                  aria-label="Profile"
+                >
+                  <User className="h-6 w-6" />
+                </Button>
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-32 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 z-50">
+                    <Link
+                      href="/profile"
+                      className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      Profile
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <>
+                <Link href="/login">
+                  <Button variant="outline" size="sm">Log in</Button>
+                </Link>
+                <Link href="/signup">
+                  <Button size="sm">Sign Up</Button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
         
