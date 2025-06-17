@@ -8,8 +8,9 @@ import {
 } from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
 import { HeroHighlight, Highlight } from '@/components/ui/hero-highlight';
-import { BookOpenCheck, Quote, Sparkles } from "lucide-react";
+import { BookOpenCheck, Quote, Sparkles, Play, ArrowRight, Target, Shield, TrendingUp, Award, Star } from "lucide-react";
 import { Vortex } from '@/components/ui/vortex';
+import { useRouter } from 'next/navigation';
 
 interface TimelineEntry {
   title: string;
@@ -18,6 +19,10 @@ interface TimelineEntry {
 }
 
 export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
+  const router = useRouter();
+  const handleModuleClick = (moduleId: string, moduleName: string) => {
+    router.push(`/learn/${moduleId}`);
+  };  
   const ref = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
@@ -98,12 +103,80 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
                 {item.title}
               </h3>
             </div>
-
             <div className="relative pl-20 pr-4 md:pl-4 w-full">
               <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-neutral-500 dark:text-neutral-500">
                 {item.title}
               </h3>
               {item.content}{" "}
+
+              {/* Conditionally render button only for modules */}
+              {item.titleHighlight && item.titleHighlight.startsWith('Module') && (
+                <button 
+                  onClick={() => {
+                    // Determine module ID based on titleHighlight
+                    const moduleMap = {
+                      'Module 1:': 'module1',
+                      'Module 2:': 'module2', 
+                      'Module 3:': 'module3',
+                      'Module 4:': 'module4',
+                      'Module 5:': 'module5'
+                    };
+                    const moduleId = moduleMap[item.titleHighlight as keyof typeof moduleMap] || 'unknown';
+                    const moduleName = item.title.replace(item.titleHighlight, '').trim();
+                    handleModuleClick(moduleId, moduleName);
+                  }}
+                  className={`w-full mt-4 backdrop-blur-sm rounded-xl p-4 font-semibold transition-all duration-300 flex items-center justify-between group border shadow-lg hover:shadow-xl ${
+                    // Dynamic styling based on module with light/dark mode support
+                    item.titleHighlight === 'Module 1:' ? 'bg-green-500/20 hover:bg-green-500/30 text-green-800 dark:text-white border-green-500/30 hover:border-green-500/40 dark:border-green-400/20 dark:hover:border-green-400/40' :
+                    item.titleHighlight === 'Module 2:' ? 'bg-blue-500/20 hover:bg-blue-500/30 text-blue-800 dark:text-white border-blue-500/30 hover:border-blue-500/40 dark:border-blue-400/20 dark:hover:border-blue-400/40' :
+                    item.titleHighlight === 'Module 3:' ? 'bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-800 dark:text-white border-emerald-500/30 hover:border-emerald-500/40 dark:border-emerald-400/20 dark:hover:border-emerald-400/40' :
+                    item.titleHighlight === 'Module 4:' ? 'bg-purple-500/20 hover:bg-purple-500/30 text-purple-800 dark:text-white border-purple-500/30 hover:border-purple-500/40 dark:border-purple-400/20 dark:hover:border-purple-400/40' :
+                    item.titleHighlight === 'Module 5:' ? 'bg-orange-500/20 hover:bg-orange-500/30 text-orange-800 dark:text-white border-orange-500/30 hover:border-orange-500/40 dark:border-orange-400/20 dark:hover:border-orange-400/40' :
+                    'bg-gray-500/20 hover:bg-gray-500/30 text-gray-800 dark:text-white border-gray-500/30 hover:border-gray-500/40 dark:border-gray-400/20 dark:hover:border-gray-400/40'
+                  }`}
+                >
+                  <span className="flex items-center gap-3">
+                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                      item.titleHighlight === 'Module 1:' ? 'bg-green-500/30 dark:bg-green-400/20' :
+                      item.titleHighlight === 'Module 2:' ? 'bg-blue-500/30 dark:bg-blue-400/20' :
+                      item.titleHighlight === 'Module 3:' ? 'bg-emerald-500/30 dark:bg-emerald-400/20' :
+                      item.titleHighlight === 'Module 4:' ? 'bg-purple-500/30 dark:bg-purple-400/20' :
+                      item.titleHighlight === 'Module 5:' ? 'bg-orange-500/30 dark:bg-orange-400/20' :
+                      'bg-gray-500/30 dark:bg-gray-400/20'
+                    }`}>
+                      <span className={`${
+                        item.titleHighlight === 'Module 1:' ? 'text-green-700 dark:text-green-300' :
+                        item.titleHighlight === 'Module 2:' ? 'text-blue-700 dark:text-blue-300' :
+                        item.titleHighlight === 'Module 3:' ? 'text-emerald-700 dark:text-emerald-300' :
+                        item.titleHighlight === 'Module 4:' ? 'text-purple-700 dark:text-purple-300' :
+                        item.titleHighlight === 'Module 5:' ? 'text-orange-700 dark:text-orange-300' :
+                        'text-gray-700 dark:text-gray-300'
+                      }`}>
+                        {item.titleHighlight === 'Module 1:' ? <Play className="w-5 h-5" /> :
+                        item.titleHighlight === 'Module 2:' ? <Target className="w-5 h-5" /> :
+                        item.titleHighlight === 'Module 3:' ? <Shield className="w-5 h-5" /> :
+                        item.titleHighlight === 'Module 4:' ? <TrendingUp className="w-5 h-5" /> :
+                        item.titleHighlight === 'Module 5:' ? <Award className="w-5 h-5" /> :
+                        <Play className="w-5 h-5" />}
+                      </span>
+                    </div>
+                    {item.titleHighlight === 'Module 1:' ? 'Start Learning Money Basics' :
+                    item.titleHighlight === 'Module 2:' ? 'Continue Budgeting Course' :
+                    item.titleHighlight === 'Module 3:' ? 'Begin Saving Strategies' :
+                    item.titleHighlight === 'Module 4:' ? 'Explore Investment Basics' :
+                    item.titleHighlight === 'Module 5:' ? 'Master Credit & Debt' :
+                    'Start Learning'}
+                  </span>
+                  <ArrowRight className={`w-5 h-5 group-hover:translate-x-1 transition-transform ${
+                    item.titleHighlight === 'Module 1:' ? 'text-green-700 dark:text-green-300' :
+                    item.titleHighlight === 'Module 2:' ? 'text-blue-700 dark:text-blue-300' :
+                    item.titleHighlight === 'Module 3:' ? 'text-emerald-700 dark:text-emerald-300' :
+                    item.titleHighlight === 'Module 4:' ? 'text-purple-700 dark:text-purple-300' :
+                    item.titleHighlight === 'Module 5:' ? 'text-orange-700 dark:text-orange-300' :
+                    'text-gray-700 dark:text-gray-300'
+                  }`} />
+                </button>
+              )}
             </div>
           </div>
         ))}
@@ -122,6 +195,43 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
           />
         </div>
       </div>
-    </div>
+      <div className="max-w-4xl mx-auto p-6">
+        {/* Call to Action */}
+        <div className="bg-gradient-to-r from-pink-500 to-violet-500 rounded-xl p-6 text-center shadow-xl">
+          <h4 className="text-white text-xl font-bold mb-2">Ready to Transform Your Financial Future?</h4>
+          <p className="text-white/90 mb-4">
+            Join thousands of learners who have mastered these essential financial skills. 
+            Your journey to financial freedom starts with one click. ✨
+          </p>
+          
+          {/* Success Stats */}
+          <div className="grid grid-cols-3 gap-4 mb-6">
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
+              <div className="text-2xl font-bold text-white">12k+</div>
+              <div className="text-xs text-white/80">Success Stories</div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
+              <div className="text-2xl font-bold text-white">97%</div>
+              <div className="text-xs text-white/80">Completion Rate</div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
+              <div className="text-2xl font-bold text-white flex items-center justify-center gap-1">
+                4.9 <Star className="w-4 h-4 fill-current" />
+              </div>
+              <div className="text-xs text-white/80">Student Rating</div>
+            </div>
+          </div>
+
+          <button className="bg-white text-purple-600 font-bold py-3 px-8 rounded-xl hover:bg-white/90 transition-colors flex items-center gap-2 mx-auto shadow-lg">
+            <Award className="w-5 h-5" />
+            Start Your Financial Journey
+            <span className="text-lg">🎁</span>
+          </button>
+          <p className="text-white/80 text-sm mt-2">
+            🎁 Begin today and receive 100 bonus knowledge coins!
+          </p>
+        </div>
+      </div>
+    </div>    
   );
 };

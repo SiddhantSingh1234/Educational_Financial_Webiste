@@ -2124,42 +2124,6 @@ export default function LearnPage() {
               </div>
             </div>
           </div>
-
-          {/* Call to Action */}
-          <div className="bg-gradient-to-r from-pink-500 to-violet-500 rounded-xl p-6 text-center shadow-xl">
-            <h4 className="text-white text-xl font-bold mb-2">Ready to Transform Your Financial Future?</h4>
-            <p className="text-white/90 mb-4">
-              Join thousands of learners who have mastered these essential financial skills. 
-              Your journey to financial freedom starts with one click. ✨
-            </p>
-            
-            {/* Success Stats */}
-            <div className="grid grid-cols-3 gap-4 mb-6">
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
-                <div className="text-2xl font-bold text-white">12k+</div>
-                <div className="text-xs text-white/80">Success Stories</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
-                <div className="text-2xl font-bold text-white">97%</div>
-                <div className="text-xs text-white/80">Completion Rate</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
-                <div className="text-2xl font-bold text-white flex items-center justify-center gap-1">
-                  4.9 <Star className="w-4 h-4" />
-                </div>
-                <div className="text-xs text-white/80">Student Rating</div>
-              </div>
-            </div>
-
-            <button className="bg-white text-purple-600 font-bold py-3 px-8 rounded-xl hover:bg-white/90 transition-colors flex items-center gap-2 mx-auto shadow-lg">
-              <Award className="w-5 h-5" />
-              Start Your Financial Journey
-              <span className="text-lg">🎁</span>
-            </button>
-            <p className="text-white/80 text-sm mt-2">
-              🎁 Begin today and receive 100 bonus knowledge coins!
-            </p>
-          </div>
         </div>
       ),
     },
